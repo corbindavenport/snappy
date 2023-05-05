@@ -6,33 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Webshot</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-sm bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Webshot</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Test</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <button type="button" id="capture-select-btn" class="btn btn-primary me-1">Select Capture</button>
-          <button class="btn btn-success" type="submit" id="capture-btn" disabled>Start</button>
-        </form>
+  <div class="container">
+    <!-- Primary buttons and status -->
+    <div class="row mt-5">
+      <!-- Select capture target -->
+      <div class="col-12 col-md-4 mb-2">
+        <button type="button" id="capture-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="capture-select-status">
+          <i class="bi bi-window"></i>
+          Select capture
+        </button>
+        <div id="capture-select-status" class="text-secondary-color text-center w-100" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+          No capture target selected
+        </div>
+      </div>
+      <!-- Select folder -->
+      <div class="col-12 col-md-4 mb-2">
+        <button type="button" id="folder-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="folder-select-status">
+          <i class="bi bi-folder2-open"></i>
+          Select folder
+        </button>
+        <div id="folder-select-status" class="text-secondary-color text-center w-100">
+          No folder selected
+        </div>
+      </div>
+      <!-- Capture start/stop button -->
+      <div class="col-12 col-md-4 mb-2">
+        <button type="button" id="capture-btn" class="btn btn-lg btn-success w-100 mb-2" disabled aria-describedby="capture-main-status">
+          <i class="bi bi-camera-fill"></i>
+          Start capture
+        </button>
+        <div id="capture-main-status" class="text-secondary-color text-center w-100">
+          Capture not running
+        </div>
       </div>
     </div>
-  </nav>
-
-  <div class="container mt-3">
-    <div class="row">
-      <!-- Settings -->
+    <!-- Settings -->
+    <div class="row mt-5">
       <div class="col-12 col-md-6">
         <!-- Capture settings -->
         <form>
@@ -40,8 +54,8 @@
             <legend>Capture settings</legend>
             <div class="mb-3">
               <label for="capture-interval" class="form-label">Capture interval</label>
-              <input class="form-control" type="number" placeholder="5" value="5" min="1">
-              <div id="passwordHelpBlock" class="form-text">
+              <input class="form-control" id="capture-interval" type="number" placeholder="5" value="5" min="1">
+              <div class="form-text">
                 Number of seconds between each capture. Faster intervals may not work properly on slow devices.
               </div>
             </div>
@@ -55,13 +69,6 @@
           <fieldset>
             <legend>File settings</legend>
             <div class="mb-3">
-              <label for="capture-folder" class="form-label">Export folder</label>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="No folder selected" id="folder-name" disabled>
-                <button class="btn btn-outline-primary" type="button" id="folder-btn">Select</button>
-            </div>
-            </div>
-            <div class="mb-3">
               <label for="capture-img-format" class="form-label">Image format</label>
               <select id="capture-img-format" class="form-select">
                 <option value="image/png">PNG</option>
@@ -70,20 +77,20 @@
               </select>
             </div>
             <div class="mb-3">
-              
+
             </div>
           </fieldset>
         </form>
       </div>
     </div>
     <!-- Video preview (this will eventually be hidden or visible as PiP) -->
-    <div class="ratio ratio-16x9 bg-warning">
-      <video id="capture-video" class="">
-  </div>
+    <div class="ratio ratio-16x9 bg-warning d-none">
+      <video id="capture-video" muted>
+    </div>
   </div>
 
   <!-- Canvas for rendering -->
-  <canvas id="capture-canvas" class="d-none" ></canvas>
+  <canvas id="capture-canvas" class="d-none"></canvas>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   <script src="js/capture.js"></script>
