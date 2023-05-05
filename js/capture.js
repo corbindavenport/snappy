@@ -1,32 +1,64 @@
-async function startCapture() {
-    var previewVid = document.getElementById('capture-video')
+const videoEl = document.getElementById('capture-video');
+var activeFolder = null;
+
+console.log('List of supported capture options:', navigator.mediaDevices.getSupportedConstraints());
+
+document.getElementById('capture-select-btn').addEventListener('click', async function () {
     var constraints = {
         audio: false,
-        video: true
+        video: {
+            frameRate: 1,
+            contrast: 100,
+            cursor: 'never'
+        },
+        selfBrowserSurface: 'exclude'
     }
-    captureStream = await navigator.mediaDevices.getDisplayMedia(constraints)
+    captureStream = await navigator.mediaDevices.getDisplayMedia(constraints);
     if (!captureStream) {
-        alert('There was an error!')
+        alert('There was an error!');
     }
-    previewVid.srcObject = captureStream
-    previewVid.play()
-    console.log(captureStream)
-    // Change button states
-    document.getElementById('capture-stop-btn').removeAttribute('disabled')
+    videoEl.srcObject = captureStream;
+    videoEl.play();
+    console.log(captureStream);
+});
+
+// TODO: No UI for saveFile, start button should work as start and stop
+
+function saveFile() {
+    var fileName = 'test';
+    var fileQuality = 0.95;
+    var imgFormat = document.getElementById('capture-img-format').value;
+    // Set file ending
+    if (imgFormat === 'image/jpeg') {
+        var fileEnding = '.jpg';
+    } else if (imgFormat === 'image/png') {
+        var fileEnding = '.png';
+    } else if (imgFormat === 'image/webp') {
+        var fileEnding = '.webp';
+    }
+    var canvas = document.getElementById('capture-canvas');
+    canvas.width = videoEl.videoWidth;
+    canvas.height = videoEl.videoHeight;
+    canvas.getContext('2d').drawImage(videoEl, 0, 0, videoEl.videoWidth, videoEl.videoHeight);
+    var imgBlob = canvas.toBlob(async function (blob) {
+        // Create file
+        var file = new File([blob], fileName + fileEnding, {
+            lastModified: Date.now(),
+            type: imgFormat
+        })
+        // Write file to storage
+        var writeableFile = await activeFolder.getFileHandle(fileName + fileEnding, { create: true })
+        var writer = await writeableFile.createWritable()
+        await writer.write(file)
+        await writer.close()
+    }, imgFormat, fileQuality);
 }
 
-function stopCapture() {
-    var previewVid = document.getElementById('capture-video')
-    let tracks = previewVid.srcObject.getTracks();
-    tracks.forEach(track => track.stop());
-    previewVid.srcObject = null;
-    document.getElementById('capture-stop-btn').setAttribute('disabled', '')
-}
-
-document.getElementById('capture-start-btn').addEventListener('click', function () {
-    startCapture()
-})
-
-document.getElementById('capture-stop-btn').addEventListener('click', function () {
-    stopCapture()
-})
+document.getElementById('folder-btn').addEventListener('click', async function () {
+    // Open file picker and destructure the result the first handle
+    activeFolder = await window.showDirectoryPicker({
+        'mode': 'readwrite'
+    });
+    document.getElementById('folder-name').value = activeFolder.name;
+    console.log(activeFolder);
+});
