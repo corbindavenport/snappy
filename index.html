@@ -12,12 +12,18 @@
 <body>
 
   <div class="container">
+    <!-- Alerts -->
+    <div class="row">
+      <div id="api-unsupported-warning" class="alert alert-warning mt-4 d-none" role="alert">
+        Your browser does not support the required <a href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API" target="_blank">File System Access API</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture" target="_blank">Screen Capture API</a> features.
+      </div>
+    </div>
     <!-- Primary buttons and status -->
     <div class="row mt-5">
       <!-- Select capture target -->
       <div class="col-12 col-md-4 mb-2">
         <button type="button" id="capture-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="capture-select-status">
-          <i class="bi bi-window"></i>
+          <i class="bi bi-window me-2"></i>
           Select capture
         </button>
         <div id="capture-select-status" class="text-secondary-color text-center w-100" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
@@ -27,7 +33,7 @@
       <!-- Select folder -->
       <div class="col-12 col-md-4 mb-2">
         <button type="button" id="folder-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="folder-select-status">
-          <i class="bi bi-folder2-open"></i>
+          <i class="bi bi-folder2-open me-2"></i>
           Select folder
         </button>
         <div id="folder-select-status" class="text-secondary-color text-center w-100">
@@ -37,7 +43,7 @@
       <!-- Capture start/stop button -->
       <div class="col-12 col-md-4 mb-2">
         <button type="button" id="capture-btn" class="btn btn-lg btn-success w-100 mb-2" disabled aria-describedby="capture-main-status">
-          <i class="bi bi-camera-fill"></i>
+          <i class="bi bi-record2 me-2"></i>
           Start capture
         </button>
         <div id="capture-main-status" class="text-secondary-color text-center w-100">
