@@ -42,7 +42,7 @@
       </div>
       <!-- Capture start/stop button -->
       <div class="col-12 col-md-4 mb-2">
-        <button type="button" id="capture-btn" class="btn btn-lg btn-success w-100 mb-2" disabled aria-describedby="capture-main-status">
+        <button type="button" id="capture-btn" class="btn btn-lg btn-success w-100 mb-2" disabled>
           <i class="bi bi-record2 me-2"></i>
           Start capture
         </button>
@@ -60,6 +60,20 @@
               <input class="form-control" id="capture-interval" type="number" placeholder="5" value="5" min="1">
               <div class="form-text">
                 The number of seconds between each capture. Faster intervals may not work properly on slow devices.
+              </div>
+            </div>
+            <div class="mb-3">
+              <button type="button" id="capture-preview-btn" class="btn btn-outline-primary w-100">
+                Toggle preview window
+              </button>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" value="" id="capture-low-latency-mode">
+              <label class="form-check-label" for="capture-low-latency-mode">
+                Low latency mode
+              </label>
+              <div class="form-text">
+                This changes the screen capture from 1 FPS to the highest allowed frame rate, up to 120 FPS. CPU and battery usage will be increased.
               </div>
             </div>
           </fieldset>

@@ -5,8 +5,6 @@ var activeFolder = null;
 var captureInterval = null;
 const browserSupported = (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia && ('showDirectoryPicker' in window));
 
-console.log('List of supported capture options:', navigator.mediaDevices.getSupportedConstraints());
-
 function checkIfReady() {
     if (activeFolder && captureStream.active) {
         document.getElementById('capture-btn').removeAttribute('disabled')
@@ -24,12 +22,17 @@ async function selectCaptureTarget() {
         },
         selfBrowserSurface: 'exclude'
     }
+    // Change framerate for low latency mode
+    if (document.getElementById('capture-low-latency-mode').checked) {
+        constraints.video.frameRate = { ideal: 60, max: 120 };
+    }
+    console.log(constraints)
     captureStream = await navigator.mediaDevices.getDisplayMedia(constraints);
     if (!captureStream) {
         alert('There was an error!');
     }
     // Handle capture stop
-    captureStream.addEventListener('inactive', function() {
+    captureStream.addEventListener('inactive', function () {
         document.getElementById('capture-select-status').innerText = 'No capture target selected';
         stopCapture();
     }, { once: true });
@@ -102,7 +105,7 @@ function stopCapture() {
     // Stop interval if needed
     try {
         clearInterval(captureInterval);
-    } catch(e) {
+    } catch (e) {
         console.error('Error stopping interval:', e);
     }
     // Change button and status state
@@ -116,6 +119,14 @@ function stopCapture() {
     }
 }
 
+function togglePreviewWindow() {
+    if (document.pictureInPictureElement === videoEl) {
+        document.exitPictureInPicture();
+    } else {
+        videoEl.requestPictureInPicture();
+    }
+}
+
 async function selectFolder() {
     activeFolder = await window.showDirectoryPicker({
         'mode': 'readwrite'
@@ -125,7 +136,7 @@ async function selectFolder() {
     checkIfReady();
 }
 
-// Main buttons
+// Button event handlers
 
 document.getElementById('folder-select-btn').addEventListener('click', function () {
     selectFolder();
@@ -142,6 +153,10 @@ document.getElementById('capture-btn').addEventListener('click', async function 
         startCapture();
     }
 });
+
+document.getElementById('capture-preview-btn').addEventListener('click', function () {
+    togglePreviewWindow();
+})
 
 // Show compatibility warning if browser is missing APIs
 if (!browserSupported) {
