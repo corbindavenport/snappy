@@ -45,7 +45,7 @@ function startCapture() {
     // Change recording state
     captureinProgress = true;
     // Set variables
-    var fileQuality = 0.95;
+    var fileQuality = (parseFloat(document.getElementById('capture-img-quality').value) / 100);
     var imgFormat = document.getElementById('capture-img-format').value;
     var intervalTime = (parseFloat(document.getElementById('capture-interval').value) * 1000);
     const btn = document.getElementById('capture-btn');
@@ -80,7 +80,7 @@ async function saveToDisk(fileEnding, imgFormat, fileQuality) {
     canvas.width = videoEl.videoWidth;
     canvas.height = videoEl.videoHeight;
     canvas.getContext('2d').drawImage(videoEl, 0, 0, videoEl.videoWidth, videoEl.videoHeight);
-    var imgBlob = canvas.toBlob(async function (blob) {
+    canvas.toBlob(async function (blob) {
         // Create file
         var file = new File([blob], fileName + fileEnding, {
             lastModified: Date.now(),

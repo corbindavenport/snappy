@@ -46,9 +46,6 @@
           <i class="bi bi-record2 me-2"></i>
           Start capture
         </button>
-        <div id="capture-main-status" class="text-secondary-color text-center w-100">
-          Capture not running
-        </div>
       </div>
     </div>
     <!-- Settings -->
@@ -62,7 +59,7 @@
               <label for="capture-interval" class="form-label">Capture interval</label>
               <input class="form-control" id="capture-interval" type="number" placeholder="5" value="5" min="1">
               <div class="form-text">
-                Number of seconds between each capture. Faster intervals may not work properly on slow devices.
+                The number of seconds between each capture. Faster intervals may not work properly on slow devices.
               </div>
             </div>
           </fieldset>
@@ -83,16 +80,17 @@
               </select>
             </div>
             <div class="mb-3">
-
-            </div>
+              <label for="capture-interval" class="form-label">Image quality</label>
+              <input class="form-control" id="capture-img-quality" type="number" placeholder="92" value="92" min="1" max="100">
+              <div class="form-text">
+                The image quality from 1-100, the default is 92. This setting doesn't affect PNG files.
+              </div>
           </fieldset>
         </form>
       </div>
     </div>
     <!-- Video preview (this will eventually be hidden or visible as PiP) -->
-    <div class="ratio ratio-16x9 bg-warning d-none">
-      <video id="capture-video" muted>
-    </div>
+      <video id="capture-video" class="d-none" muted>
   </div>
 
   <!-- Canvas for rendering -->
