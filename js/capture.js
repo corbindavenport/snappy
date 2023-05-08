@@ -136,6 +136,14 @@ async function selectFolder() {
     checkIfReady();
 }
 
+function showCompatWarning() {
+    var disabledEls = '#capture-select-btn, #folder-select-btn, #capture-btn, fieldset';
+    document.getElementById('api-unsupported-warning').classList.remove('d-none');
+    document.querySelectorAll(disabledEls).forEach(function(el) {
+        el.setAttribute('disabled', 'true');
+    })
+}
+
 // Button event handlers
 
 document.getElementById('folder-select-btn').addEventListener('click', function () {
@@ -160,5 +168,5 @@ document.getElementById('capture-preview-btn').addEventListener('click', functio
 
 // Show compatibility warning if browser is missing APIs
 if (!browserSupported) {
-    document.getElementById('api-unsupported-warning').classList.remove('d-none');
+    showCompatWarning();
 }

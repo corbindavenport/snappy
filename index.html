@@ -14,14 +14,16 @@
   <div class="container">
     <!-- Alerts -->
     <div class="row">
-      <div id="api-unsupported-warning" class="alert alert-warning mt-4 d-none" role="alert">
-        Your browser does not support the required <a href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API" target="_blank">File System Access API</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture" target="_blank">Screen Capture API</a> features.
+      <div class="col-12">
+        <div id="api-unsupported-warning" class="alert alert-warning mt-3 d-none" role="alert">
+          Webshot is unavailable because your browser does not support the required <a href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API" target="_blank">File System Access API</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture" target="_blank">Screen Capture API</a> features.
+        </div>
       </div>
     </div>
     <!-- Primary buttons and status -->
-    <div class="row mt-5">
+    <div class="row mt-2 mt-md-5">
       <!-- Select capture target -->
-      <div class="col-12 col-md-4 mb-2">
+      <div class="col-12 col-md-4 mt-2">
         <button type="button" id="capture-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="capture-select-status">
           <i class="bi bi-window me-2"></i>
           Select capture
@@ -31,7 +33,7 @@
         </div>
       </div>
       <!-- Select folder -->
-      <div class="col-12 col-md-4 mb-2">
+      <div class="col-12 col-md-4 mt-2">
         <button type="button" id="folder-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="folder-select-status">
           <i class="bi bi-folder2-open me-2"></i>
           Select folder
@@ -41,7 +43,7 @@
         </div>
       </div>
       <!-- Capture start/stop button -->
-      <div class="col-12 col-md-4 mb-2">
+      <div class="col-12 col-md-4 mt-2">
         <button type="button" id="capture-btn" class="btn btn-lg btn-success w-100 mb-2" disabled>
           <i class="bi bi-record2 me-2"></i>
           Start capture
@@ -49,7 +51,7 @@
       </div>
     </div>
     <!-- Settings -->
-    <div class="row mt-5">
+    <div class="row mt-2 mt-md-5">
       <div class="col-12 col-md-6">
         <!-- Capture settings -->
         <form>
