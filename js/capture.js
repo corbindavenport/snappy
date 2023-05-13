@@ -1,4 +1,5 @@
 const videoEl = document.getElementById('capture-video');
+const discordUrl = document.getElementById('discord-webhook-url');
 var captureinProgress = false;
 var captureStream = null;
 var activeFolder = null;
@@ -7,9 +8,9 @@ const browserSupported = (navigator.mediaDevices && navigator.mediaDevices.getDi
 
 function checkIfReady() {
     if (activeFolder && captureStream.active) {
-        document.getElementById('capture-btn').removeAttribute('disabled')
+        document.getElementById('capture-btn').removeAttribute('disabled');
     } else {
-        document.getElementById('capture-btn').setAttribute('disabled', 'true')
+        document.getElementById('capture-btn').setAttribute('disabled', 'true');
     }
 }
 
@@ -26,7 +27,6 @@ async function selectCaptureTarget() {
     if (document.getElementById('capture-low-latency-mode').checked) {
         constraints.video.frameRate = { ideal: 60, max: 120 };
     }
-    console.log(constraints)
     captureStream = await navigator.mediaDevices.getDisplayMedia(constraints);
     if (!captureStream) {
         alert('There was an error!');
@@ -34,6 +34,7 @@ async function selectCaptureTarget() {
     // Handle capture stop
     captureStream.addEventListener('inactive', function () {
         document.getElementById('capture-select-status').innerText = 'No capture target selected';
+        sendDiscordMessage('**Capture stopped because the permission was revoked.**');
         stopCapture();
     }, { once: true });
     videoEl.srcObject = captureStream;
@@ -41,6 +42,28 @@ async function selectCaptureTarget() {
     videoEl.play();
     // Check if capture is ready
     checkIfReady();
+}
+
+function sendDiscordMessage(message) {
+    // Don't send webhook if the text box is blank
+    if (!discordUrl.value) {
+        return false;
+    }
+    // Set webhook settings
+    const webhookUrl = discordUrl.value;
+    const payload = {
+        'content': message,
+        'username': 'Snappy',
+        'avatar_url': 'https://thesnappy.app/img/maskable_icon_x96.png'
+    };
+    // Send webhook
+    fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
 }
 
 function startCapture() {
@@ -90,10 +113,16 @@ async function saveToDisk(fileEnding, imgFormat, fileQuality) {
             type: imgFormat
         })
         // Write file to storage
-        var writeableFile = await activeFolder.getFileHandle(fileName + fileEnding, { create: true })
-        var writer = await writeableFile.createWritable()
-        await writer.write(file)
-        await writer.close()
+        try {
+            var writeableFile = await activeFolder.getFileHandle(fileName + fileEnding, { create: true });
+            var writer = await writeableFile.createWritable();
+            await writer.write(file);
+            await writer.close();
+            sendDiscordMessage('Screenshot saved: `' + fileName + fileEnding + '`');
+        } catch (e) {
+            console.error('Error writing file:', e);
+            sendDiscordMessage('Error: ' + e.message);
+        }
     }, imgFormat, fileQuality);
 }
 
@@ -139,7 +168,7 @@ async function selectFolder() {
 function showCompatWarning() {
     var disabledEls = '#capture-select-btn, #folder-select-btn, #capture-btn, fieldset';
     document.getElementById('api-unsupported-warning').classList.remove('d-none');
-    document.querySelectorAll(disabledEls).forEach(function(el) {
+    document.querySelectorAll(disabledEls).forEach(function (el) {
         el.setAttribute('disabled', 'true');
     })
 }

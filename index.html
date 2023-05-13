@@ -23,7 +23,7 @@
 
 <body>
 
-  <div class="container">
+  <div class="container-fluid container-lg">
     <!-- Alerts -->
     <div class="row">
       <div class="col-12">
@@ -35,7 +35,7 @@
     <!-- Primary buttons and status -->
     <div class="row mt-2 mt-md-5">
       <!-- Select capture target -->
-      <div class="col-12 col-md-4 mt-2">
+      <div class="col-12 col-sm-4 mt-2">
         <button type="button" id="capture-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="capture-select-status">
           <i class="bi bi-window me-2"></i>
           Select capture
@@ -45,7 +45,7 @@
         </div>
       </div>
       <!-- Select folder -->
-      <div class="col-12 col-md-4 mt-2">
+      <div class="col-12 col-sm-4 mt-2">
         <button type="button" id="folder-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="folder-select-status">
           <i class="bi bi-folder2-open me-2"></i>
           Select folder
@@ -55,7 +55,7 @@
         </div>
       </div>
       <!-- Capture start/stop button -->
-      <div class="col-12 col-md-4 mt-2">
+      <div class="col-12 col-sm-4 mt-2">
         <button type="button" id="capture-btn" class="btn btn-lg btn-success w-100 mb-2" disabled>
           <i class="bi bi-record2 me-2"></i>
           Start capture
@@ -64,8 +64,8 @@
     </div>
     <!-- Settings -->
     <div class="row mt-2 mt-md-5">
+      <!-- Capture settings -->
       <div class="col-12 col-md-6">
-        <!-- Capture settings -->
         <form>
           <fieldset>
             <legend>Capture settings</legend>
@@ -95,7 +95,6 @@
       </div>
       <!-- File settings -->
       <div class="col-12 col-md-6">
-        <!-- Capture settings -->
         <form>
           <fieldset>
             <legend>File settings</legend>
@@ -112,6 +111,21 @@
               <input class="form-control" id="capture-img-quality" type="number" placeholder="92" value="92" min="1" max="100">
               <div class="form-text">
                 The image quality from 1-100, the default is 92. This setting doesn't affect PNG files.
+              </div>
+          </fieldset>
+        </form>
+      </div>
+      <!-- Discord settings -->
+      <div class="col-12 col-md-6">
+        <!-- Capture settings -->
+        <form>
+          <fieldset>
+            <legend>Discord settings</legend>
+            <div class="mb-3">
+              <label for="discord-webhook-url" class="form-label">Webhook URL</label>
+              <input class="form-control" id="discord-webhook-url" type="text">
+              <div class="form-text">
+                Snappy can send confirmations for each screen capture and errors as Discord messages, using <a href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks" target="_blank">webhooks</a>. This can be helpful for remote monitoring.
               </div>
           </fieldset>
         </form>
