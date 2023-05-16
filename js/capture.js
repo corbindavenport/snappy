@@ -199,3 +199,24 @@ document.getElementById('capture-preview-btn').addEventListener('click', functio
 if (!browserSupported) {
     showCompatWarning();
 }
+
+// Save settings automatically to localStorage
+document.querySelectorAll('input[type="checkbox"],select,input[type="text"],input[type="number"]').forEach(function (el) {
+    el.addEventListener('change', function () {
+        const val = (el.checked || el.value || el.innerText);
+        localStorage.setItem(el.id, val);
+        console.log('Saved setting:', el.id, val);
+    })
+})
+
+// Load settings from localStorage
+Object.entries(localStorage).forEach(function (key) {
+    if (document.getElementById(key[0])) {
+        console.log('Loaded setting:', key)
+        if (document.getElementById(key[0]).type === 'checkbox') {
+            document.getElementById(key[0]).checked = JSON.parse(key[1]);
+        } else {
+            document.getElementById(key[0]).value = key[1];
+        }
+    }
+})
