@@ -1,7 +1,7 @@
 {
     "name": "Snappy",
     "short_name": "Snappy",
-    "description": "Remove tracking code and other variables from web links with the press of a button! Installing Link Cleaner adds it to your device's share menu for links.",
+    "description": "Snappy can capture screenshots automatically and save them to your files.",
     "icons": [
         {
             "src": "img/icon_x192.png",
