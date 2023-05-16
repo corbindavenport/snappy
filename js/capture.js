@@ -82,7 +82,7 @@ function startCapture() {
     // Change button and status state
     btn.classList.remove('btn-success');
     btn.classList.add('btn-danger');
-    btn.innerHTML = '<i class="bi bi-record2-fill me-2"></i>Stop capture';
+    btn.innerHTML = '<i class="bi bi-record2-fill me-2 d-sm-none d-md-inline"></i>Stop capture';
     // Set file ending
     if (imgFormat === 'image/jpeg') {
         var fileEnding = '.jpg';
@@ -140,7 +140,7 @@ function stopCapture() {
     // Change button and status state
     btn.classList.remove('btn-danger');
     btn.classList.add('btn-success');
-    btn.innerHTML = '<i class="bi bi-record2 me-2"></i>Start capture';
+    btn.innerHTML = '<i class="bi bi-record2 me-2 d-sm-none d-md-inline"></i>Start capture';
     checkIfReady();
     // Remove app badge
     if ('setAppBadge' in navigator) {
