@@ -21,7 +21,41 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
-<body>
+<body style="padding-top: 57px;">
+
+  <!-- Nav bar -->
+  <nav class="navbar fixed-top navbar-expand-sm bg-dark border-bottom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Snappy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Link nav -->
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              <i class="bi bi-house-fill"></i>
+              Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/corbindavenport/snappy" target="_blank">
+              <i class="bi bi-github"></i>
+              GitHub
+            </a>
+          </li>
+        </ul>
+        <!-- Record button -->
+        <form class="d-flex">
+          <button type="button" id="capture-btn" class="btn btn-success w-100" disabled>
+            <i class="bi bi-record2 me-2 d-md-inline"></i>
+            Start capture
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
 
   <div class="container-fluid container-lg">
     <!-- Alerts -->
@@ -35,9 +69,9 @@
     <!-- Primary buttons and status -->
     <div class="row mt-2 mt-lg-5">
       <!-- Select capture target -->
-      <div class="col-12 col-sm-4 mt-2">
-        <button type="button" id="capture-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="capture-select-status">
-          <i class="bi bi-window me-2 d-sm-none d-md-inline"></i>
+      <div class="col-12 col-sm-6 mt-2">
+        <button type="button" id="capture-select-btn" class="btn btn-primary w-100 mb-2" aria-describedby="capture-select-status">
+          <i class="bi bi-window me-2"></i>
           Select capture
         </button>
         <div id="capture-select-status" class="text-secondary-color text-center w-100" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
@@ -45,21 +79,14 @@
         </div>
       </div>
       <!-- Select folder -->
-      <div class="col-12 col-sm-4 mt-2">
-        <button type="button" id="folder-select-btn" class="btn btn-lg btn-primary w-100 mb-2" aria-describedby="folder-select-status">
-          <i class="bi bi-folder2-open me-2 d-sm-none d-md-inline"></i>
+      <div class="col-12 col-sm-6 mt-2">
+        <button type="button" id="folder-select-btn" class="btn btn-primary w-100 mb-2" aria-describedby="folder-select-status">
+          <i class="bi bi-folder2-open me-2"></i>
           Select folder
         </button>
         <div id="folder-select-status" class="text-secondary-color text-center w-100">
           No folder selected
         </div>
-      </div>
-      <!-- Capture start/stop button -->
-      <div class="col-12 col-sm-4 mt-2">
-        <button type="button" id="capture-btn" class="btn btn-lg btn-success w-100 mb-2" disabled>
-          <i class="bi bi-record2 me-2 d-sm-none d-md-inline"></i>
-          Start capture
-        </button>
       </div>
     </div>
     <!-- Settings message -->
@@ -127,11 +154,14 @@
         <form>
           <fieldset>
             <legend>Discord settings</legend>
+            <p>
+              Snappy can send confirmations for each screen capture and errors as Discord messages, using <a href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks" target="_blank">webhooks</a>. This can be helpful for remote monitoring.
+            </p>
             <div class="mb-3">
               <label for="discord-webhook-url" class="form-label">Webhook URL</label>
-              <input class="form-control" id="discord-webhook-url" type="text">
+              <input class="form-control" id="discord-webhook-url" type="text" placeholder="https://discord.com/api/webhooks/...">
               <div class="form-text">
-                Snappy can send confirmations for each screen capture and errors as Discord messages, using <a href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks" target="_blank">webhooks</a>. This can be helpful for remote monitoring.
+                The webhook URL provided by Discord
               </div>
           </fieldset>
         </form>
