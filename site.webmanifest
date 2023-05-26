@@ -32,7 +32,7 @@
             "purpose": "maskable"
         }
     ],
-    "theme_color": "#212529",
+    "theme_color": "#343a40",
     "background_color": "#212529",
     "display": "standalone",
     "start_url": "/?utm_source=Installed%20App"
