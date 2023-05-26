@@ -100,14 +100,8 @@
         </div>
       </div>
     </div>
-    <!-- Settings message -->
-    <div class="row mt-2 mt-sm-4 mt-md-5">
-      <div class="col-12">
-        Your changes to settings are saved automatically.
-      </div>
-    </div>
     <!-- Settings -->
-    <div class="row mt-2">
+    <div class="row mt-sm-4 mt-md-5">
       <!-- Capture settings -->
       <div class="col-12 col-md-6">
         <form>
@@ -124,15 +118,6 @@
               <button type="button" id="capture-preview-btn" class="btn btn-outline-primary w-100">
                 Toggle preview window
               </button>
-            </div>
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" value="" id="capture-low-latency-mode">
-              <label class="form-check-label" for="capture-low-latency-mode">
-                Low latency mode
-              </label>
-              <div class="form-text">
-                This changes the screen capture from 1 FPS to the highest allowed frame rate, up to 120 FPS. CPU and battery usage will be increased.
-              </div>
             </div>
           </fieldset>
         </form>
@@ -164,29 +149,77 @@
         <!-- Capture settings -->
         <form>
           <fieldset>
-            <legend>Discord settings</legend>
-            <p>
-              Snappy can send confirmations for each screen capture and errors as Discord messages, using <a href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks" target="_blank">webhooks</a>. This can be helpful for remote monitoring.
-            </p>
+            <legend>Discord integration</legend>
             <div class="mb-3">
               <label for="discord-webhook-url" class="form-label">Webhook URL</label>
               <input class="form-control" id="discord-webhook-url" type="text" placeholder="https://discord.com/api/webhooks/...">
               <div class="form-text">
-                The webhook URL provided by Discord
+                Snappy can send confirmations for each screen capture and errors as Discord messages, using <a href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks" target="_blank">webhooks</a>. This can be helpful for remote monitoring.
               </div>
           </fieldset>
         </form>
       </div>
-    </div>
-    <!-- info -->
-    <div class="row mt-2 mb-5">
-      <div class="col-12 text-center">
-        <b>Snappy is an experimental web app.</b> See the <a href="https://github.com/corbindavenport/snappy" target="_blank">GitHub project</a> for more information.
+      <!-- Advanced settings -->
+      <div class="col-12 col-md-6">
+        <fieldset>
+          <legend>Advanced settings</legend>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="" id="capture-low-latency-mode">
+            <label class="form-check-label" for="capture-low-latency-mode">
+              Low latency mode
+            </label>
+            <div class="form-text">
+              This changes the screen capture from 1 FPS to the highest allowed frame rate, up to 120 FPS, but CPU and battery usage will be increased. You may need to reload Snappy for the change to take effect.
+            </div>
+          </div>
+        </fieldset>
       </div>
     </div>
-    <!-- Video preview (this will eventually be hidden or visible as PiP) -->
-    <video id="capture-video" class="d-none" muted>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">What does Snappy do?</h5>
+            <p class="card-text">Snappy is a web app for capturing automatic screenshots, inspired by <a href="https://autoscreencap.sourceforge.io/" target="_blank">AutoScreenCap</a>. You can select a window, screen, or browser tab, then start the capture to automatically save an image on a specified interval.</p>
+            <p class="card-text">Snappy can be helpful for recording presentations, livestreams, or other similar use cases.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 mb-3">
+        <!-- Donate card -->
+        <div class="card donate-card mt-3">
+          <div class="card-body">
+            <p class="card-text">Snappy is open-source, and the code is <a href="https://github.com/corbindavenport/snappy" target="_blank">available on GitHub</a>. If you want to report a bug or suggest features, please <a href="https://github.com/corbindavenport/snappy/issues/new" target="_blank">create an issue</a> or <a href="https://discord.gg/59wfy5cNHw" target="_blank">join the Discord group</a>.</p>
+            <p>
+              <a href="https://www.patreon.com/corbindavenport" target="_blank">
+                <button type="button" class="btn btn-block btn-success w-100">Support on Patreon</button>
+              </a>
+            </p>
+            <p class="card-text">You can also support Snappy on <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4SZVSMJKDS35J&lc=US&item_name=Snappy%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">PayPal</a> and <a href="https://cash.app/$corbdav" target="_blank">Cash App</a>!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Social links -->
+    <div class="row">
+      <div class="col-12 mt-3 mb-4 text-center text-body-secondary">
+        Made with &#9829; by Corbin Davenport
+        <div class="fs-3 d-flex justify-content-center">
+          <!-- Mastodon -->
+          <a href="https://toot.community/@corbin" class="text-reset px-2" target="_blank">
+            <i class="bi bi-mastodon" aria-label="Mastodon"></i>
+          </a>
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/corbindav/" class="text-reset px-2" target="_blank">
+            <i class="bi bi-facebook" aria-label="Facebook"></i>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Video for capture and PiP -->
+  <video id="capture-video" class="d-none" muted>
 
   <!-- Canvas for rendering -->
   <canvas id="capture-canvas" class="d-none"></canvas>
