@@ -35,5 +35,6 @@
     "theme_color": "#343a40",
     "background_color": "#212529",
     "display": "standalone",
+    "display_override": ["window-controls-overlay"],
     "start_url": "/?utm_source=Installed%20App"
 }
