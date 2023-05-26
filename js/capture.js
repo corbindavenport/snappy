@@ -100,7 +100,8 @@ function startCapture() {
 async function saveToDisk(fileEnding, imgFormat, fileQuality) {
     // Get date
     var date = new Date();
-    var fileName = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getMilliseconds();
+    var fileName = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds();
+    console.log(fileName);
     // Capture image
     var canvas = document.getElementById('capture-canvas');
     canvas.width = videoEl.videoWidth;
