@@ -201,6 +201,13 @@ if (!browserSupported) {
     showCompatWarning();
 }
 
+// Prevent page navigation when capture is running
+window.addEventListener('beforeunload', function(event) {
+    if (captureinProgress) {
+        event.returnValue = 'Are you sure you want to close Snappy? You are currently capturing screenshots.'
+    }
+});
+
 // Save settings automatically to localStorage
 document.querySelectorAll('input[type="checkbox"],select,input[type="text"],input[type="number"]').forEach(function (el) {
     el.addEventListener('change', function () {
