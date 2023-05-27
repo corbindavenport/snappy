@@ -21,7 +21,9 @@ async function selectCaptureTarget() {
             frameRate: 1,
             cursor: 'never'
         },
-        selfBrowserSurface: 'exclude'
+        selfBrowserSurface: 'exclude',
+        surfaceSwitching: 'exclude',
+        displaySurface: 'window'
     }
     // Change framerate for low latency mode
     if (document.getElementById('capture-low-latency-mode').checked) {
