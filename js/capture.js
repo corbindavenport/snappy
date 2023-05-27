@@ -16,14 +16,15 @@ function checkIfReady() {
 
 async function selectCaptureTarget() {
     var constraints = {
+        // Documentation: https://developer.chrome.com/docs/web-platform/screen-sharing-controls
         audio: false,
         video: {
             frameRate: 1,
-            cursor: 'never'
+            cursor: 'never',
+            displaySurface: 'window',
+            surfaceSwitching: 'exclude'
         },
         selfBrowserSurface: 'exclude',
-        surfaceSwitching: 'exclude',
-        displaySurface: 'window'
     }
     // Change framerate for low latency mode
     if (document.getElementById('capture-low-latency-mode').checked) {
