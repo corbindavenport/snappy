@@ -4,7 +4,7 @@ var captureinProgress = false;
 var captureStream = null;
 var activeFolder = null;
 var captureInterval = null;
-const browserSupported = (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia && ('showDirectoryPicker' in window));
+const browserSupported = (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia && (('showDirectoryPicker' in window) || ('createObjectURL' in window.URL)));
 
 function checkIfReady() {
     if (activeFolder && captureStream.active) {
@@ -22,11 +22,15 @@ async function selectCaptureTarget() {
             frameRate: 1,
             cursor: 'never',
             displaySurface: 'window',
-            surfaceSwitching: 'exclude'
+            surfaceSwitching: 'exclude',
+            resizeMode: 'crop-and-scale',
+            aspectRatio: {
+                ideal: 1.7777777778
+              }
         },
         selfBrowserSurface: 'exclude',
     }
-    // Change framerate for low latency mode
+    // Initialize capture stream
     if (document.getElementById('capture-low-latency-mode').checked) {
         constraints.video.frameRate = { ideal: 60, max: 120 };
     }
@@ -35,13 +39,15 @@ async function selectCaptureTarget() {
         alert('There was an error!');
     }
     // Handle capture stop
-    captureStream.addEventListener('inactive', function () {
+    captureStream.getVideoTracks()[0].addEventListener('ended', function () {
         document.getElementById('capture-select-status').innerText = 'No capture target selected';
         sendDiscordMessage('**Capture stopped because the permission was revoked.**');
         stopCapture();
     }, { once: true });
-    videoEl.srcObject = captureStream;
+    // Add label to UI
     document.getElementById('capture-select-status').innerText = captureStream.id;
+    // Initialize video element
+    videoEl.srcObject = captureStream;
     videoEl.play();
     // Check if capture is ready
     checkIfReady();
@@ -105,6 +111,7 @@ async function saveToDisk(fileEnding, imgFormat, fileQuality) {
     var date = new Date();
     var fileName = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds();
     console.log(fileName);
+    console.log(videoEl.videoWidth);
     // Capture image
     var canvas = document.getElementById('capture-canvas');
     canvas.width = videoEl.videoWidth;
@@ -118,10 +125,19 @@ async function saveToDisk(fileEnding, imgFormat, fileQuality) {
         })
         // Write file to storage
         try {
-            var writeableFile = await activeFolder.getFileHandle(fileName + fileEnding, { create: true });
-            var writer = await writeableFile.createWritable();
-            await writer.write(file);
-            await writer.close();
+            if (activeFolder === 'legacy') {
+                // Use downloads as a fallback
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(blob);
+                a.download = fileName + fileEnding;
+                a.click();
+            } else {
+                // Use File System Access API
+                var writeableFile = await activeFolder.getFileHandle(fileName + fileEnding, { create: true });
+                var writer = await writeableFile.createWritable();
+                await writer.write(file);
+                await writer.close();
+            }
             sendDiscordMessage('Screenshot saved: `' + fileName + fileEnding + '`');
         } catch (e) {
             console.error('Error writing file:', e);
@@ -169,14 +185,6 @@ async function selectFolder() {
     checkIfReady();
 }
 
-function showCompatWarning() {
-    var disabledEls = '#capture-select-btn, #folder-select-btn, #capture-btn, fieldset';
-    document.getElementById('api-unsupported-warning').classList.remove('d-none');
-    document.querySelectorAll(disabledEls).forEach(function (el) {
-        el.setAttribute('disabled', 'true');
-    })
-}
-
 // Button event handlers
 
 document.getElementById('folder-select-btn').addEventListener('click', function () {
@@ -199,13 +207,24 @@ document.getElementById('capture-preview-btn').addEventListener('click', functio
     togglePreviewWindow();
 })
 
-// Show compatibility warning if browser is missing APIs
+// Disable all controls if the browser is fully incompatible
 if (!browserSupported) {
-    showCompatWarning();
+    // Disable all controls if the browser is fully incompatible
+    var disabledEls = '#capture-select-btn, #folder-select-btn, #capture-btn, fieldset';
+    document.getElementById('api-unsupported-warning').classList.remove('d-none');
+    document.querySelectorAll(disabledEls).forEach(function (el) {
+        el.setAttribute('disabled', 'true');
+    })
+} else if (!('showDirectoryPicker' in window)) {
+    // Use regular file downloads as fallback for File System Access API
+    document.getElementById('file-access-unsupported-warning').classList.remove('d-none');
+    activeFolder = 'legacy';
+    document.getElementById('folder-select-btn').setAttribute('disabled', true);
+    document.getElementById('folder-select-status').innerText = 'Folder: Downloads'
 }
 
 // Prevent page navigation when capture is running
-window.addEventListener('beforeunload', function(event) {
+window.addEventListener('beforeunload', function (event) {
     if (captureinProgress) {
         event.returnValue = 'Are you sure you want to close Snappy? You are currently capturing screenshots.'
     }

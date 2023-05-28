@@ -72,8 +72,11 @@
     <!-- Alerts -->
     <div class="row">
       <div class="col-12">
+        <div id="file-access-unsupported-warning" class="alert alert-warning mt-3 d-none" role="alert">
+          Snappy can only save screenshots to your Downloads folder and may be unreliable, because your browser is missing full support for <a href="https://caniuse.com/native-filesystem-api" target="_blank">File System Access API</a>. You may also need to allow permission to download multiple files when asked.
+        </div>
         <div id="api-unsupported-warning" class="alert alert-warning mt-3 d-none" role="alert">
-          Snappy is unavailable because your browser does not support the required <a href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API" target="_blank">File System Access API</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture" target="_blank">Screen Capture API</a> features.
+          Snappy is unavailable because your browser is missing the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture" target="_blank">Screen Capture API</a> or other required features.
         </div>
       </div>
     </div>
