@@ -111,7 +111,6 @@ async function saveToDisk(fileEnding, imgFormat, fileQuality) {
     var date = new Date();
     var fileName = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds();
     console.log(fileName);
-    console.log(videoEl.videoWidth);
     // Capture image
     var canvas = document.getElementById('capture-canvas');
     canvas.width = videoEl.videoWidth;
