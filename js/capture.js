@@ -22,11 +22,7 @@ async function selectCaptureTarget() {
             frameRate: 1,
             cursor: 'never',
             displaySurface: 'window',
-            surfaceSwitching: 'exclude',
-            resizeMode: 'crop-and-scale',
-            aspectRatio: {
-                ideal: 1.7777777778
-              }
+            surfaceSwitching: 'exclude'
         },
         selfBrowserSurface: 'exclude',
     }
