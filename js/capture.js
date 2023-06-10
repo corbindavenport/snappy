@@ -228,6 +228,15 @@ window.addEventListener('beforeunload', function (event) {
     }
 });
 
+// Hide WebP file setting on unsupported web browsers
+Modernizr.on('webp', function (result) {
+    if (!result) {
+        var webpOption = document.querySelector('#capture-img-format option[value="image/webp"]');
+        webpOption.setAttribute('disabled', 'true');
+        webpOption.innerText = 'WebP (not supported by your browser)';
+    }
+});
+
 // Save settings automatically to localStorage
 document.querySelectorAll('input[type="checkbox"],select,input[type="text"],input[type="number"]').forEach(function (el) {
     el.addEventListener('change', function () {
