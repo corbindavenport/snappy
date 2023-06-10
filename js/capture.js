@@ -7,7 +7,7 @@ var captureInterval = null;
 const browserSupported = (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia && (('showDirectoryPicker' in window) || ('createObjectURL' in window.URL)));
 
 function checkIfReady() {
-    if (activeFolder && captureStream.active) {
+    if (activeFolder && (captureStream.getVideoTracks()[0].readyState === 'live')) {
         document.getElementById('capture-btn').removeAttribute('disabled');
     } else {
         document.getElementById('capture-btn').setAttribute('disabled', 'true');
@@ -175,6 +175,7 @@ async function selectFolder() {
     activeFolder = await window.showDirectoryPicker({
         'mode': 'readwrite'
     });
+    console.log(activeFolder);
     document.getElementById('folder-select-status').innerText = 'Folder: ' + activeFolder.name;
     // Check if capture is ready
     checkIfReady();
