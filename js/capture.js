@@ -136,7 +136,9 @@ async function saveToDisk(fileEnding, imgFormat, fileQuality) {
             sendDiscordMessage('Screenshot saved: `' + fileName + fileEnding + '`');
         } catch (e) {
             console.error('Error writing file:', e);
-            sendDiscordMessage('Error: ' + e.message);
+            sendDiscordMessage('Error writing file: ' + e.message);
+            stopCapture();
+            alert('Error writing file: ' + e.message);
         }
     }, imgFormat, fileQuality);
 }
