@@ -32,8 +32,10 @@
             "purpose": "maskable"
         }
     ],
-    "theme_color": "#343a40",
+   "theme_color": "#3d5f7f",
     "background_color": "#212529",
     "display": "standalone",
+    "orientation": "any",
+    "lang": "en",
     "start_url": "/?utm_source=Installed%20App"
 }
