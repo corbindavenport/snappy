@@ -32,8 +32,8 @@
 <body>
 
   <!-- Nav bar -->
-  <nav class="navbar fixed-top bg-body-secondary navbar-expand-sm border-bottom d-print-none">
-    <div class="container-fluid">
+  <nav class="navbar fixed-top navbar-expand bg-body-secondary border-bottom d-print-none">
+    <div class="container-fluid container-lg">
       <a class="navbar-brand d-none d-sm-inline" href="#">Snappy</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -59,7 +59,7 @@
           <!-- Capture button -->
           <button type="button" id="capture-btn" class="btn btn-success me-2" disabled>
             <i class="bi bi-record2 me-2"></i>
-            Start capture
+            Start<span class="d-none d-sm-inline"> capture</span>
           </button>
           <!-- Theme toggle -->
           <div class="dropdown">
@@ -203,6 +203,7 @@
             <h5 class="card-title">What does Snappy do?</h5>
             <p class="card-text">Snappy is a web app for capturing automatic screenshots, inspired by <a href="https://autoscreencap.sourceforge.io/" target="_blank">AutoScreenCap</a>. You can select a window, screen, or browser tab, then start the capture to automatically save an image on a specified interval.</p>
             <p class="card-text">Snappy can be helpful for recording presentations, livestreams, or other similar use cases. It works in all modern browsers that support screen capture, though some browsers may not support selecting specific folders or capturing browser tabs.</p>
+            <p>Snappy is built to be private and secure. Check the <a href="https://github.com/corbindavenport/snappy/blob/main/PRIVACY.md" target="_blank">Privacy Policy</a> for more information.</p>
           </div>
         </div>
       </div>

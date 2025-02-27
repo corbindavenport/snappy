@@ -23,3 +23,7 @@ This depends on the browser and operating system, but *generally*, selecting an 
 ### Does Snappy require an internet connection?
 
 Snappy works offline after it is loaded for the first time. You can test it by disconnecting your device from all networks, and navigating to [thesnappy.app](https://thesnappy.app/) in your web browser.
+
+### How does Snappy handle my data and privacy?
+
+Check the [Privacy Policy](PRIVACY.md) for more information.
