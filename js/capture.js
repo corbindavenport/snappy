@@ -19,17 +19,19 @@ async function selectCaptureTarget() {
         // Documentation: https://developer.chrome.com/docs/web-platform/screen-sharing-controls
         audio: false,
         video: {
-            frameRate: 1,
+            frameRate: 30,
             cursor: 'never',
             displaySurface: 'window',
             surfaceSwitching: 'exclude'
         },
+        // Block Snappy from tab selection menu
         selfBrowserSurface: 'exclude',
+        // Allow an entire monitor to be selected
+        monitorTypeSurfaces: 'include',
+        // Block the "Share this tab instead" button when user switches to another window or tab
+        surfaceSwitching: 'exclude'
     }
     // Initialize capture stream
-    if (document.getElementById('capture-low-latency-mode').checked) {
-        constraints.video.frameRate = { ideal: 60, max: 120 };
-    }
     captureStream = await navigator.mediaDevices.getDisplayMedia(constraints);
     if (!captureStream) {
         alert('There was an error!');
@@ -37,7 +39,6 @@ async function selectCaptureTarget() {
     // Handle capture stop
     captureStream.getVideoTracks()[0].addEventListener('ended', function () {
         document.getElementById('capture-select-status').innerText = 'No capture target selected';
-        sendDiscordMessage('**Capture stopped because the permission was revoked.**');
         stopCapture();
     }, { once: true });
     // Add label to UI
@@ -47,28 +48,6 @@ async function selectCaptureTarget() {
     videoEl.play();
     // Check if capture is ready
     checkIfReady();
-}
-
-function sendDiscordMessage(message) {
-    // Don't send webhook if the text box is blank
-    if (!discordUrl.value) {
-        return false;
-    }
-    // Set webhook settings
-    const webhookUrl = discordUrl.value;
-    const payload = {
-        'content': message,
-        'username': 'Snappy',
-        'avatar_url': 'https://thesnappy.app/img/maskable_icon_x96.png'
-    };
-    // Send webhook
-    fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    });
 }
 
 function startCapture() {
@@ -133,10 +112,8 @@ async function saveToDisk(fileEnding, imgFormat, fileQuality) {
                 await writer.write(file);
                 await writer.close();
             }
-            sendDiscordMessage('Screenshot saved: `' + fileName + fileEnding + '`');
         } catch (e) {
             console.error('Error writing file:', e);
-            sendDiscordMessage('Error writing file: ' + e.message);
             stopCapture();
             alert('Error writing file: ' + e.message);
         }
