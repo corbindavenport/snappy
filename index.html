@@ -35,6 +35,7 @@
       padding-top: calc(56px + env(safe-area-inset-top, 0px));
       padding-bottom: env(safe-area-inset-bottom);
     }
+
     /* Fixes for screens with insets */
     body,
     .navbar {
@@ -59,24 +60,18 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">
               <i class="bi bi-house-fill"></i>
-              <span class="d-none d-sm-inline">Home</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/corbindavenport/snappy/blob/main/README.md" target="_blank">
-              <i class="bi bi-question-circle-fill"></i>
-              <span class="d-none d-sm-inline">Help</span>
+              Home
             </a>
           </li>
         </ul>
         <!-- Navbar buttons -->
-        <form class="d-flex">
+        <form class="d-flex flex-column flex-sm-row">
           <!-- Theme toggle -->
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle theme">
+          <button class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle theme">
               <i class="bi bi-moon-stars-fill"></i>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+          <div class="dropdown">
+            <ul class="dropdown-menu dropdown-menu-end w-100 w-sm-auto shadow-sm">
               <li><a class="dropdown-item snappy-theme-btn" data-theme="light" href="#">
                   <i class="bi bi-brightness-high-fill me-2"></i>
                   Light mode
@@ -191,10 +186,28 @@
     <!-- Features card -->
     <div class="card mb-4 mt-4">
       <div class="card-body">
-        <h5 class="card-title">What does Snappy do?</h5>
-        <p class="card-text">Snappy is a web app for capturing automatic screenshots, inspired by <a href="https://autoscreencap.sourceforge.io/" target="_blank">AutoScreenCap</a>. You can select a window, screen, or browser tab, then start the capture to automatically save an image on a specified interval.</p>
-        <p class="card-text">Snappy can be helpful for recording presentations, livestreams, or other similar use cases. It works in all modern browsers that support screen capture, though some browsers may not support selecting specific folders or capturing browser tabs.</p>
-        <p>Snappy is built to be private and secure. Check the <a href="https://github.com/corbindavenport/snappy/blob/main/PRIVACY.md" target="_blank">Privacy Policy</a> for more information.</p>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <h5 class="card-title">Easy automatic screenshots</h5>
+            <p>Snappy is a web app for capturing automatic screenshots, inspired by <a href="https://autoscreencap.sourceforge.io/" target="_blank">AutoScreenCap</a>. You can select a window, screen, or browser tab, then start the capture to automatically save an image on a specified interval.</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <h5 class="card-title">Modern features</h5>
+            <p>Snappy works in any web browser that supports screen capture, through the <a href="https://caniuse.com/mdn-api_mediadevices_getdisplaymedia" target="_blank">getDisplayMedia API</a>. If your browser supports the <a href="https://caniuse.com/native-filesystem-api" target="_blank">File System Access API</a>, you can select any folder on your device for saving screenshots.</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <h5 class="card-title">Privacy first</h5>
+            <p>The capture and file operations run in your web browser, without sending the data to any external server or cloud service. Check the <a href="https://github.com/corbindavenport/snappy/blob/main/PRIVACY.md" target="_blank">Privacy Policy</a> for more information.</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <h5 class="card-title">Offline support</h5>
+            <p>Snappy can function entirely offline on most devices. When you open Snappy for the first time, the app is saved to your browser's local storage, so typing in "thesnappy.app" will always work, even when you're away from Wi-Fi.</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <h5 class="card-title">Open-source software</h5>
+            <p>Snappy is an <a href="https://github.com/corbindavenport/snappy">open-source software project on GitHub</a> under the GPLv3 license. You can check out the code, suggest features or bugs, or create your own version.</p>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Support card -->
@@ -222,7 +235,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- Video for capture and PiP -->
   <video id="capture-video" class="d-none" muted></video>
