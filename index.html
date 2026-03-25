@@ -68,8 +68,8 @@
         <form class="d-flex flex-column flex-sm-row">
           <!-- Theme toggle -->
           <button class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle theme">
-              <i class="bi bi-moon-stars-fill"></i>
-            </button>
+            <i class="bi bi-moon-stars-fill"></i>
+          </button>
           <div class="dropdown">
             <ul class="dropdown-menu dropdown-menu-end w-100 w-sm-auto shadow-sm">
               <li><a class="dropdown-item snappy-theme-btn" data-theme="light" href="#">
@@ -91,19 +91,18 @@
     </div>
   </nav>
 
+  <!-- Alerts -->
+  <div class="container-fluid p-0">
+    <div id="file-access-unsupported-warning" class="alert alert-warning d-none" role="alert" style="border-radius: 0;">
+      Snappy can only save screenshots to your Downloads folder, because your browser is missing full support for <a href="https://caniuse.com/native-filesystem-api" target="_blank">File System Access API</a>. You may also need to allow permission to download multiple files when asked.
+    </div>
+    <div id="api-unsupported-warning" class="alert alert-warning d-none" role="alert" style="border-radius: 0;">
+      Snappy is unavailable because your browser is missing the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture" target="_blank">Screen Capture API</a> or other required features.
+    </div>
+  </div>
+
   <!-- Main controls and settings -->
   <div class="container-fluid container-lg">
-    <!-- Alerts -->
-    <div class="row">
-      <div class="col-12">
-        <div id="file-access-unsupported-warning" class="alert alert-warning mt-3 d-none" role="alert">
-          Snappy can only save screenshots to your Downloads folder and may be unreliable, because your browser is missing full support for <a href="https://caniuse.com/native-filesystem-api" target="_blank">File System Access API</a>. You may also need to allow permission to download multiple files when asked.
-        </div>
-        <div id="api-unsupported-warning" class="alert alert-warning mt-3 d-none" role="alert">
-          Snappy is unavailable because your browser is missing the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture" target="_blank">Screen Capture API</a> or other required features.
-        </div>
-      </div>
-    </div>
     <!-- Primary buttons and status -->
     <div class="row mt-3 mt-lg-5">
       <!-- Start/stop capture -->
@@ -115,10 +114,16 @@
       </div>
       <!-- Select capture target -->
       <div class="col-12 col-sm-6 col-lg-4 mt-2">
-        <button type="button" id="capture-select-btn" class="btn btn-primary w-100 mb-2 shadow-sm" aria-describedby="capture-select-status">
-          <i class="bi bi-window me-2"></i>
-          Select window or screen
-        </button>
+        <div class="input-group mb-2 shadow-sm d-flex flex-row">
+          <button type="button" id="capture-select-btn" class="btn btn-primary flex-fill" aria-describedby="capture-select-status">
+            <i class="bi bi-window me-2"></i>
+            Select window or screen
+          </button>
+          <button type="button" class="btn btn-secondary" id="camera-select-btn">
+            <i class="bi bi-camera-video"></i>
+            <span class="visually-hidden">Select camera input</span>
+          </button>
+        </div>
         <div id="capture-select-status" class="text-secondary-color text-center w-100" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
           No capture target selected
         </div>

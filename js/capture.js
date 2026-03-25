@@ -14,8 +14,8 @@ function checkIfReady() {
     }
 }
 
-async function selectCaptureTarget() {
-    var constraints = {
+async function selectCaptureTarget(type) {
+    const screenConstraints = {
         // Documentation: https://developer.chrome.com/docs/web-platform/screen-sharing-controls
         audio: false,
         video: {
@@ -31,8 +31,19 @@ async function selectCaptureTarget() {
         // Block the "Share this tab instead" button when user switches to another window or tab
         surfaceSwitching: 'exclude'
     }
+    const cameraConstraints = {
+        video: {
+            width: { ideal: 1920 },
+            height: { ideal: 1080 },
+        },
+        audio: false
+    }
     // Initialize capture stream
-    captureStream = await navigator.mediaDevices.getDisplayMedia(constraints);
+    if (type === 'screen') {
+        captureStream = await navigator.mediaDevices.getDisplayMedia(screenConstraints);
+    } else if (type === 'camera') {
+        captureStream = await navigator.mediaDevices.getUserMedia(cameraConstraints);
+    }
     if (!captureStream) {
         alert('There was an error!');
     }
@@ -167,7 +178,11 @@ document.getElementById('folder-select-btn').addEventListener('click', function 
 });
 
 document.getElementById('capture-select-btn').addEventListener('click', async function () {
-    selectCaptureTarget();
+    selectCaptureTarget('screen');
+});
+
+document.getElementById('camera-select-btn').addEventListener('click', async function () {
+    selectCaptureTarget('camera');
 });
 
 document.getElementById('capture-btn').addEventListener('click', async function () {
